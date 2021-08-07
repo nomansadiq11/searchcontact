@@ -1,0 +1,22 @@
+First Name,FirstName,public string FirstName{get;set;}
+Last Name,LastName,public string LastName{get;set;}
+Title,Title,public string Title{get;set;}
+Email,Email,public string Email{get;set;}
+Phone 1,Phone1,public string Phone1{get;set;}
+Phone 2,Phone2,public string Phone2{get;set;}
+Organization,Organization,public string Organization{get;set;}
+Common Organization Name,CommonOrganizationName,public string CommonOrganizationName{get;set;}
+Street,Street,public string Street{get;set;}
+City,City,public string City{get;set;}
+State,State,public string State{get;set;}
+County,County,public string County{get;set;}
+Postal,Postal,public string Postal{get;set;}
+Country,Country,public string Country{get;set;}
+Website,Website,public string Website{get;set;}
+Revenue,Revenue,public string Revenue{get;set;}
+Employees,Employees,public string Employees{get;set;}
+Industries,Industries,public string Industries{get;set;}
+SIC Code,SICCode,public string SICCode{get;set;}
+SIC Description,SICDescription,public string SICDescription{get;set;}
+Accuracy,Accuracy,public string Accuracy{get;set;}
+Job Function,JobFunction,public string JobFunction{get;set;}

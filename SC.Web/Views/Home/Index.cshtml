@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/DumpData.js"></script>
+
+<h2>Dump the Contact Data</h2>
+
+<table ng-app="SearchContact" ng-controller="SearchContactController" ng-init="fn_GetTotalContacts()">
+    <tr>
+        <td>Select File</td>
+        <td>
+            <input type="file" id="fileInput" />
+        </td>
+        <td>
+            <input type="button" value="Upload Data" ng-click="UploadData()" />
+        </td>
+        
+        
+    </tr>
+    <tr>
+        <td colspan="3">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <strong style="font-size:large;">
+                Total Contacts Exists : {{TotalContacts}}
+            </strong>
+        </td>
+    </tr>
+</table>
+

@@ -1,0 +1,242 @@
+﻿
+@{
+    ViewBag.Title = "FindContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>FindContact</h2>
+
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/FindContact.js"></script>
+<script src="~/Scripts/alasql.min.js" type="text/javascript"></script>
+<script src="~/Scripts/xlsx.core.min.js" type="text/javascript"></script>
+
+
+
+
+<div ng-app="SearchContact" ng-controller="FindContactController">
+
+
+
+    <div class="row" ng-init="fn_GetCountryList();fn_GetStateList();fn_GetPostalList();fn_GetJobFunctionList();fn_GetAccuracyList();fn_GetIndustriesList();fn_GetEmplooyesList();fn_GetRevenueList();fn_GetSICList();fn_RefreshAllFields();fn_GetSelectedSearchList()" ng-show="!IsData" ng-hide="IsData">
+        <div class="col-md-8">
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Title</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Title" ng-model="Title">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" ng-model="Email">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">First Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name" ng-model="FirstName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Last Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Last Name" ng-model="LastName">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Phone 1 </label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone 1" ng-model="Phone1">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Phone 2</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Phone 2" ng-model="Phone2">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Street</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Street" ng-model="Street">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Website</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Website" ng-model="Website">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Organization</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Organization" ng-model="Organization">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleInputEmail1">Common Organization Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Common Organization Name" ng-model="COrganization">
+            </div>
+
+            <div class="form-group col-md-6" style="display:none;">
+                <label for="exampleSelect1">Country</label>
+                <select class="form-control" ng-model="Country" ng-options="o.Name for o in CountryList track by o.CountryID">
+                    <option value="" disabled>Select Country</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">State</label>
+                <select class="form-control" multiple ng-model="State" ng-options="o.Code for o in StateList track by o.StateID" ng-change="fn_GetCityList();fn_GetCountyList()"></select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Postal</label>
+                <select class="form-control" multiple ng-model="Postal" ng-options="o.Name for o in PostalList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">City</label>
+                <select class="form-control" multiple ng-model="City" ng-options="o.Name for o in CityList track by o.Name">
+                    <option value="">None</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">County</label>
+                <select class="form-control" multiple ng-model="County" ng-options="o.Name for o in CountyList track by o.Name">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Job Function</label>
+
+                <select class="form-control" multiple ng-model="JobFunction" ng-options="o.Name for o in JobFunctionList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Accuracy</label>
+                <select class="form-control" multiple ng-model="Accuracy" ng-options="o.Name for o in AccuracyList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">SIC Code</label>
+                <select class="form-control" multiple ng-model="SCode" ng-options="o.Code + ' | ' + o.Description for o in SICList track by o.Code">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Industries</label>
+                <select class="form-control" multiple ng-model="Industries" ng-options="o.Name for o in IndustriesList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Employees</label>
+                <select class="form-control" multiple ng-model="Employees" ng-options="o.Name for o in EmployeesList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="exampleSelect1">Revenue</label>
+                <select class="form-control" multiple ng-model="Revenue" ng-options="o.Name for o in RevenueList track by o.ID">
+                    <option value="">None</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Last search...</h3>
+            <table>
+                <tr ng-repeat="item in SelectedSearchList">
+                    <td>
+                        <a href="#" ng-click="fn_GetSelectedSearch(item.ID)">
+                            {{item.Name}}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="glyphicon glyphicon-remove" ng-click="fn_DeleteSearchCriteria(item.ID)"></>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+    </div>
+
+
+    <div class="row" ng-show="!IsData" ng-hide="IsData">
+        <div class="form-group col-md-12">
+            <button type="button" class="btn btn-primary" style="width:100%;" ng-click="fn_Findcontact()">Search Contact</button>
+        </div>
+    </div>
+
+    <div ng-show="IsData" ng-hide="!IsData">
+
+        @*<button type="button" class="btn btn-primary">Save Search Ceriteria</button>*@
+        <button type="button" class="btn btn-primary" ng-click="fn_BackToSearch()">Back</button>
+        <button type="button" class="btn btn-primary" ng-click="fn_NewSearch()">New Search</button>
+        <button type="button" class="btn btn-primary" ng-click="exportData()">Export Current Page</button>
+        <button type="button" class="btn btn-primary" ng-click="fn_DeleteContacts()">Delete List </button>
+        @*<button type="button" class="btn btn-primary" ng-click="exportData()">Export Full CSV</button>*@
+        <button type="button" class="btn btn-primary" ng-click="fn_SaveExistingSearch()">Save Search Criteria</button>
+        <h3 ng-show="IsData" ng-hide="!IsData">Total Contact(s) ({{TotalContacts}})</h3>
+        <hr />
+        <div>
+            <label>Page <input type="number" ng-model="PageNo" style="width:50px; text-align:center;" />  of {{TotalPages}}</label>
+            <button type="button" class="btn btn-primary" ng-click="fn_GetPreviousPage()">Previous</button>
+            <button type="button" class="btn btn-primary" ng-click="fn_GetNextPage()">Next</button>
+
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th scope="col">Title</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone 1</th>
+                    <th scope="col">Phone 2</th>
+                    <th scope="col">Street</th>
+                    <th scope="col">Website</th>
+                    <th scope="col">Organization</th>
+                    <th scope="col">State</th>
+                    <th scope="col">City Name</th>
+                    <th scope="col">Postal Code</th>
+                    <th scope="col">County</th>
+                    <th scope="col">Job Function</th>
+                    <th scope="col">Accuracy</th>
+                    <th scope="col">SIC</th>
+                    <th scope="col">Industries</th>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Revenue</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in ContactList">
+
+                    <td>{{item.Title}}</td>
+                    <td>{{item.Email}}</td>
+                    <td>{{item.FirstName}}</td>
+                    <td>{{item.LastName}}</td>
+                    <td>{{item.Email}}</td>
+                    <td>{{item.Phone1}}</td>
+                    <td>{{item.Phone2}}</td>
+                    <td>{{item.Street}}</td>
+                    <td>{{item.Website}}</td>
+                    <td>{{item.Organization}}</td>
+                    <td>{{item.StateCode}}</td>
+                    <td>{{item.CityName}}</td>
+                    <td>{{item.PostCode}}</td>
+                    <td>{{item.CountyName}}</td>
+                    <td>{{item.JobFunctionName}}</td>
+                    <td>{{item.AccuracyName}}</td>
+                    <td>{{item.SICDetails}}</td>
+                    <td>{{item.IndustriesName}}</td>
+                    <td>{{item.EmployeeName}}</td>
+                    <td>{{item.RevenueName}}</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
